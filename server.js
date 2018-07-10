@@ -70,7 +70,7 @@ app.get("/scrape", function(req, res) {
           return res.json(err);
         });
     });
-    res.send("Scrape complete!")
+    res.send("Scrape Complete!");
   });
 });
 
