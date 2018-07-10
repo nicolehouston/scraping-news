@@ -1,7 +1,7 @@
 <ol>
   {{#each article}}
     <li>
-      <a href={{ link }}>{{title}}</a><a class="waves-effect waves-light btn-small note">Notes</a>
+      <a href={{ link }}>{{title}}</a><a class="waves-effect waves-light btn-small note" value={{ _id }}>Notes</a>
       <p>{{summary}}</p>
     </li>
   {{/each}}
