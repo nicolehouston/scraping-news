@@ -62,7 +62,7 @@ app.get("/scrape", function(req, res) {
         .attr("href");
 
       // Create a new Article using the `result` object built from scraping
-        db.Article.create(result)
+        db.Article.update({ title: result.title }, { $set: result }, { upsert: true })
         .then(function() {
         })
         .catch(function(err) {
