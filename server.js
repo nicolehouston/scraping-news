@@ -39,7 +39,7 @@ mongoose.connect(MONGODB_URI);
 // Routes
 
 // A GET route for scraping nintendo articles
-app.get("/", function(req, res) {
+app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
   axios.get("http://www.ign.com/nintendo").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -63,18 +63,18 @@ app.get("/", function(req, res) {
 
       // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
-        .then(function(dbArticle) {
-          var hbsObject = {
-            article: dbArticle
-          };
-          result.render("index", hbsObject);
+        .then(function() {
         })
         .catch(function(err) {
           // If an error occurred, send it to the client
           return res.json(err);
         });
     });
+    res.send("Scrape complete!")
   });
+});
+
+app.get("/", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       var hbsObject = {
@@ -87,7 +87,6 @@ app.get("/", function(req, res) {
       res.json(err);
     });
 });
-
   // Start the server
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
